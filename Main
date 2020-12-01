@@ -22,10 +22,10 @@ object Assignment2 extends Assignment2 {
 
   /** Main function */
   def main(args: Array[String]): Unit = {
-//    val conf = new SparkConf()
-//    conf.setAppName("Assignment2")
-//    conf.setMaster("local")
-//    val sc = new SparkContext(conf)
+    //    val conf = new SparkConf()
+    //    conf.setAppName("Assignment2")
+    //    conf.setMaster("local")
+    //    val sc = new SparkContext(conf)
 
     val lines = sc.textFile(args(0))
 
@@ -187,26 +187,23 @@ class Assignment2 extends Serializable {
       })
 
 
-
       //计算聚类的median
       val Median = NewClusterRDD.map(item => {
         Tuple2(item._1, computeMedian(item._2))
       })
 
 
-
-
       val LengthOfNewCentroids = NewCentroids.keys.count().toInt
-//      println(LengthOfNewCentroids)
+      //      println(LengthOfNewCentroids)
       var ArrayNewCentroids = new Array[(Int, Int)](45)
 
-      //如果新的聚类中心点数量减少（在cluster上运行时发现的错）
-      if(LengthOfNewCentroids<kPoints.length){
+      //如果新的聚类中心点
+      if (LengthOfNewCentroids < kPoints.length) {
         val temp = kPoints.drop(LengthOfNewCentroids)
         val temp_1 = NewCentroids.values.collect()
         ArrayNewCentroids = temp_1 ++ temp
       }
-      else{
+      else {
         ArrayNewCentroids = NewCentroids.values.collect()
       }
       //计算新聚类中心点和老聚类中心点的距离
@@ -225,8 +222,8 @@ class Assignment2 extends Serializable {
           Tuple4(tuple, itr._2._1._2, itr._2._2, itr._2._1._1._2)
         }).collect()
 
-//      FinalOutput.foreach(println)
-        FinalOutput.foreach(item=>{
+        //      FinalOutput.foreach(println)
+        FinalOutput.foreach(item => {
           finaloutput.+=(item)
         })
       }
@@ -255,8 +252,8 @@ class Assignment2 extends Serializable {
 
   /** Return the euclidean distance between two points */
   def euclideanDistance(a1: Array[(Int, Int)], a2: Array[(Int, Int)]): Double = {
-//    println(a1.length)
-//    println(a2.length)
+    //    println(a1.length)
+    //    println(a2.length)
     assert(a1.length == a2.length)
     var sum = 0d
     var idx = 0
@@ -305,7 +302,7 @@ class Assignment2 extends Serializable {
     if (length % 2 == 0) (lower.last + upper.head) / 2 else upper.head
   }
 
-  def printResults(item:ArrayBuffer[((Int, Int), Int, Int, Int)])= {
+  def printResults(item: ArrayBuffer[((Int, Int), Int, Int, Int)]) = {
     item.foreach(println)
   }
 
