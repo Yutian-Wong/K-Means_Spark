@@ -200,7 +200,7 @@ class Assignment2 extends Serializable {
 //      println(LengthOfNewCentroids)
       var ArrayNewCentroids = new Array[(Int, Int)](45)
 
-      //如果新的聚类中心点
+      //如果新的聚类中心点数量减少（在cluster上运行时发现的错）
       if(LengthOfNewCentroids<kPoints.length){
         val temp = kPoints.drop(LengthOfNewCentroids)
         val temp_1 = NewCentroids.values.collect()
