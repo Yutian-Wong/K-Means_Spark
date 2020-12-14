@@ -235,9 +235,6 @@ class Assignment2 extends Serializable {
 
   //
   //
-  //  Kmeans utilities (Just some cases, you can implement your own utilities.)
-  //
-  //
 
   /** Decide whether the kmeans clustering converged */
   def converged(distance: Double) = distance < kmeansEta
